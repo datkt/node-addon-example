@@ -1,39 +1,31 @@
-//import node.napi_value
-import napi.*
 import kotlinx.cinterop.*
+import napi.*
 
 class NValue(rawPtr: NativePtr): CStructVar(rawPtr) {
-  companion object : Type(4, 4)
+  companion object : Type(8, 8)
 }
 
 fun Init(env: napi_env, exports: napi_value): napi_value {
   memScoped {
-    //var fn: CValuesRef<napi_valueVar>? = null
-    var fn = alloc<NValue>()
-    var ptr = fn.ptr as CValuesRef<napi_valueVar>
-    val add: napi_callback? = staticCFunction(::Add)
-    var status = napi_create_function(env, "Add", 0, add, null, ptr)
+    val fn = alloc<napi_valueVar>()
+    var status = napi_create_function(
+      env, "Hello", 0, staticCFunction(::Hello), null, fn.ptr
+    )
 
     if (napi_status.napi_ok != status) {
       throw Error("Failed to create N-API function: ${status}")
     }
 
-    //status = napi_set_named_property(env, exports, "add", ptr);
+    status = napi_set_named_property(env, exports, "hello", fn.value)
 
     if (napi_status.napi_ok != status) {
       throw Error("Failed to create N-API function: ${status}")
     }
   }
 
-  println("HI VIP")
   return exports
 }
 
-fun Add(env: napi_env?, info: napi_callback_info?): napi_value? {
-  val argv: Array<napi_value> = emptyArray()
-  var x: Int
-  var y: Int
-
-  return argv[0]
-  //x.usePi
+fun Hello(env: napi_env?, info: napi_callback_info?): napi_value? {
+  return null
 }

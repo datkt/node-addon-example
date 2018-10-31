@@ -1,1 +1,2 @@
-console.log(require('./module'))
+const { hello } = require('./module')
+hello() // should print 'hello' to stdout

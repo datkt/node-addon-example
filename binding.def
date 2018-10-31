@@ -1,6 +1,6 @@
 # vim: set syntax=make:
 
-headers = module_api.h node/node_api.h
+headers = module_api.h
 headerFilter = module_api.h node/node_api.h node/**
 compilerOpts = -I/usr/local/include -I.
 

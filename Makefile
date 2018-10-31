@@ -1,15 +1,11 @@
 MKDIR = mkdir -p
 
-build: napi.klib
 build: binding.klib
 build: libmodule.so
 build: module.node
 
-napi.klib:
-	cinterop -def napi.def -pkg napi -o napi
-
-module_api.h: napi.klib
-	konanc module.kt -no{main,stdlib} -l napi -p dynamic -o module
+module_api.h:
+	konanc module.kt -no{main,stdlib} -r node_modules/@datkt -l napi/napi -p dynamic -o module
 
 binding.klib: module_api.h
 	cinterop -def binding.def -pkg napi -o binding
