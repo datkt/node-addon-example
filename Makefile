@@ -4,7 +4,7 @@ build: binding.klib
 build: libmodule.so
 build: module.node
 
-module_api.h:
+module_api.h: node_modules
 	konanc module.kt -no{main,stdlib} -r node_modules/@datkt/napi -l napi -p dynamic -o module
 
 binding.klib: module_api.h
@@ -14,7 +14,10 @@ libmodule.so: binding.klib
 	konanc module.kt -l binding -p dynamic -o module
 
 module.node: libmodule.so
-	cp -f $^ $@
+	mv -f $^ $@
+
+node_modules: package.json
+	npm rebuild
 
 clean:
 	rm -rf *.node *.so *klib *.h build/ ./build-*/ ./*-build/
