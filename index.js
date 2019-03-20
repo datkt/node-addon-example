@@ -1,4 +1,1 @@
-const { hello } = require('./module')
-module.exports = {
-  hello
-}
+module.exports = require('node-gyp-build')(__dirname)

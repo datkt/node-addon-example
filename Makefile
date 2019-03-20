@@ -1,4 +1,6 @@
 MKDIR = mkdir -p
+BUILD ?= build
+RELEASE ?= $(BUILD)/Release
 
 build: binding.klib
 build: libmodule.so
@@ -13,11 +15,9 @@ binding.klib: module_api.h
 libmodule.so: binding.klib
 	konanc module.kt -l binding -p dynamic -o module
 
-module.node: libmodule.so
+module.node: $(RELEASE)/module.node
+$(RELEASE)/module.node: libmodule.so
 	mv -f $^ $@
-
-node_modules: package.json
-	npm rebuild
 
 clean:
 	rm -rf *.node *.so *klib *.h build/ ./build-*/ ./*-build/

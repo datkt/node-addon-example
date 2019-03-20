@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "make",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@datkt/napi": "^0.1.0"
+    "@datkt/napi": "^0.1.0",
+    "node-gyp-build": "^3.8.0"
   },
   "devDependencies": {
     "eslint": "^5.15.0",
